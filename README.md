@@ -28,8 +28,7 @@ Use this link to directly go to the release in Github
 With this custom script you can be able switch on the `PowerX` by updating the `PulseTimeX` value of a tasmota device through `MQTT` connection.
 Note : X is the switch no. Refer the script.
 
-1. In the script you will pass the below parameters if you have 
-a functionality to call an api(eg: `http://192.168.0.54/cm?cmnd=power1`) then it will cause CORS issue since the domain is different from the `homeassistant.local:8123` host.
+1. In the script you will pass the below parameters to which will update the MQTT
 - `mqtt_topic` - This is the mqtt topic where we should pass the command PulseTime with second and send the Power `on` command.
 Eg:
     ```yaml
