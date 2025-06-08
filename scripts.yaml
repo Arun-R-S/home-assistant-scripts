@@ -1,0 +1,31 @@
+tasmota_dynamic_pulse:
+  alias: "Tasmota: Dynamic Pulse Trigger"
+  description: "Send PulseTime and Power to any relay"
+  mode: queued
+  fields:
+    mqtt_topic:
+      required: true
+      selector:
+        text:
+    relay_num:
+      required: true
+      selector:
+        number:
+    duration:
+      required: true
+      selector:
+        number:
+  sequence:
+    - variables:
+        duration_val: "{{ duration | int(0) }}"
+        pulsetime: "{{ duration_val + 100 }}"
+        relay_val: "{{ relay_num | int }}"
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/{{ mqtt_topic }}/PulseTime{{ relay_val }}"
+        payload: "{{ pulsetime }}"
+    - delay: "00:00:00"
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/{{ mqtt_topic }}/Power{{ relay_val }}"
+        payload: "ON"
